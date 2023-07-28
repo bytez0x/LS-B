@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Loot System Module Documentation</title>
+</head>
+
+<body>
+
+    <h1>Loot System Module Documentation</h1>
+
+    <p>The Loot System module is a powerful and flexible system for generating loot in a Roblox game. It allows game
+        developers to define loot tiers with custom probabilities and abilities. The module supports special loot events,
+        debug mode, and various other features to enhance the loot generation experience.</p>
+
+    <h2>Table of Contents</h2>
+
+    <ol>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#usage">Usage</a>
+            <ul>
+                <li><a href="#creating-a-loot-system">Creating a Loot System</a></li>
+                <li><a href="#adding-tiers">Adding Tiers</a></li>
+                <li><a href="#removing-tiers">Removing Tiers</a></li>
+                <li><a href="#generating-loot">Generating Loot</a></li>
+                <li><a href="#debug-mode">Debug Mode</a></li>
+                <li><a href="#special-loot-events">Special Loot Events</a></li>
+            </ul>
+        </li>
+        <li><a href="#examples">Examples</a></li>
+    </ol>
+
+    <h2 id="installation">Installation</h2>
+
+    <ol>
+        <li>Create a new ModuleScript in your Roblox game.</li>
+        <li>Copy and paste the entire Loot System script into the new ModuleScript.</li>
+        <li>Require the Loot System module in your game scripts to access its functions.</li>
+    </ol>
+
+    <pre><code class="lua">local LootSystem = require(game.ServerScriptService.LootSystem)
+</code></pre>
+
+    <h2 id="usage">Usage</h2>
+
+    <h3 id="creating-a-loot-system">Creating a Loot System</h3>
+
+    <pre><code class="lua">local lootSystem = LootSystem.new();
+</code></pre>
+
+    <h3 id="adding-tiers">Adding Tiers</h3>
+
+    <p>Use the <code>AddTier</code> function to define new loot tiers with specific probabilities and abilities:</p>
+
+    <pre><code class="lua">lootSystem:AddTier(tierName, chance, abilities);
+</code></pre>
+
+    <ul>
+        <li><code>tierName</code> (string): The name of the new tier.</li>
+        <li><code>chance</code> (number): The probability of this tier to be selected (in percentage).</li>
+        <li><code>abilities</code> (table, optional): A table containing the abilities for this tier. Default is an empty
+            table.</li>
+    </ul>
+
+    <h3 id="removing-tiers">Removing Tiers</h3>
+
+    <p>You can remove an existing loot tier by its name using the <code>removeTier</code> function:</p>
+
+    <pre><code class="lua">lootSystem:removeTier(tierName);
+</code></pre>
+
+    <ul>
+        <li><code>tierName</code> (string): The name of the tier to be removed.</li>
+    </ul>
+
+    <h3 id="generating-loot">Generating Loot</h3>
+
+    <p>To generate loot items, call the <code>giverandomTier</code> function:</p>
+
+    <pre><code class="lua">local tier = lootSystem:giverandomTier();
+if (tier) {
+    var ability = lootSystem:generateAbility(tier);
+    if (ability) {
+        // Handle the generated loot item
+    }
+}
+</code></pre>
+
+    <h3 id="debug-mode">Debug Mode</h3>
+
+    <p>The debug mode allows you to test and analyze the loot generation. Use the <code>runDebugMode</code> function to
+        enable the debug mode:</p>
+
+    <pre><code class="lua">lootSystem:runDebugMode(iterations, enableDebugOutput);
+</code></pre>
+
+    <ul>
+        <li><code>iterations</code> (number, optional): The number of loot generations to perform in debug mode. Default is
+            100.</li>
+        <li><code>enableDebugOutput</code> (boolean, optional): Whether to print debug information during the debug mode.
+            Default is <code>true</code>.</li>
+    </ul>
+
+    <h3 id="special-loot-events">Special Loot Events</h3>
+
+    <p>You can trigger special loot events with increased chances for specific tiers using the debug mode. Set
+        <code>isSpecialEvent</code> to <code>true</code>:</p>
+
+    <pre><code class="lua">lootSystem:runDebugMode(iterations, enableDebugOutput, true);
+</code></pre>
+
+    <h2 id="examples">Examples</h2>
+
+    <pre><code class="lua">var LootSystem = require(game.ServerScriptService.LootSystem);
+
+var lootSystem = LootSystem.new();
+
+// Adding loot tiers
+lootSystem:AddTier("Common", 20, ["Potion", "Gold", "Scroll"]);
+lootSystem:AddTier("Rare", 10, ["Magic Ring", "Enchanted Sword"]);
+lootSystem:AddTier("Epic", 5, ["Legendary Armor", "Mythical Staff"]);
+lootSystem:AddTier("Legendary", 2, ["Dragon Scale", "Divine Amulet"]);
+lootSystem:AddTier("Mythical", 1, ["Ultimate Artifact"]);
+
+// Generate loot items
+for (var i = 1; i <= 10; i++) {
+    var tier = lootSystem:giverandomTier();
+    if (tier) {
+        var ability = lootSystem:generateAbility(tier);
+        if (ability) {
+            console.log("Tier:", tier);
+            console.log("Ability:", ability);
+            console.log("------------------");
+        }
+    }
+}
+
+// Run debug mode
+lootSystem:runDebugMode(100, false);
+
+// Remove a tier
+lootSystem:removeTier("Mythical");
+</code></pre>
+
+</body>
+
+</html>
