@@ -9,7 +9,6 @@
    - [Removing Tiers](#removing-tiers)
    - [Generating Loot](#generating-loot)
    - [Debug Mode](#debug-mode)
-   - [Special Loot Events](#special-loot-events)
 3. [Examples](#examples)
 
 ## Installation
