@@ -78,7 +78,6 @@ for i = 1, 10 do
             print("------------------")
         end
     end
-}
 
 -- Run debug mode
 lootSystem:runDebugMode(100, false)
